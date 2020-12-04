@@ -24,20 +24,14 @@ class Counter extends Component {
     }
 
     initialize = async () => {
-        const {changeCount} = this.props;
-
         const redux = await AsyncStorage.getItem('isRedux')
         const countState = await AsyncStorage.getItem('counterState')
-        const countRedux = await AsyncStorage.getItem('counterRedux')
 
         if (redux !== null) {
             this.setState({redux: !!(+redux)})
         }
         if (countState !== null) {
             this.setState({count: +countState})
-        }
-        if (countRedux !== null) {
-            changeCount(+countRedux)
         }
     }
 
@@ -49,8 +43,8 @@ class Counter extends Component {
         this.setState({count: v});
 
       setTimeout(async () => {
-          if (this[redux ? 'props' : 'state'].count === v) {
-              await AsyncStorage.setItem(redux ? 'counterRedux' : 'counterState', `${v}`)
+          if (!redux && this.state.count === v) {
+              await AsyncStorage.setItem('counterState', `${v}`)
           }
       }, 500)
     };
@@ -61,7 +55,7 @@ class Counter extends Component {
 
         if (redux) {
             changeCount(0);
-            await AsyncStorage.removeItem('counterRedux')
+            //await AsyncStorage.removeItem('counterRedux')
         } else {
             this.setState({count: 0})
             await AsyncStorage.removeItem('counterState')
