@@ -9,7 +9,7 @@ export const counterStyles = {
     refreshArea: {
         position: 'absolute',
         top: 20,
-        right: -24,
+        right: 20,
     },
 
     refreshButton: {

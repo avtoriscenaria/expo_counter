@@ -63,6 +63,7 @@ class Counter extends Component {
     }
 
     render() {
+        //console.log(this.props)
         const {count: stateCount, redux} = this.state;
         const {count: reduxCount} = this.props;
 
